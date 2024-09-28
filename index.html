@@ -9,7 +9,7 @@
     <div style="display: flex; width: 80%; text-align: left; justify-content:space-around; position:sticky; align-items:center;">
         <div style="display: flex; width: 80%; text-align: left; justify-content: space-between; position: sticky; align-items: center;  padding: 0 10px;">
             <div class="d-flex">
-                <a target="_blank" href="https://reactjwt.netlify.app" class="btn btn-newf roundedn">
+                <a target="_blank" href="http://127.0.0.1:3000" class="btn btn-newf roundedn">
                     New features
                 </a>
             </div>
@@ -24,7 +24,7 @@
                 console.log('hay un token', token);
         
                 window.addEventListener('message', (event) => {
-                    if (event.origin === "https://reactjwt.netlify.app") {
+                    if (event.origin === "http://127.0.0.1:3000") {
                         const data = JSON.parse(event.data);
                         const { token } = data;
                         if (token) {
@@ -35,11 +35,11 @@
         
                 const iframeEl = document.createElement('iframe');
                 iframeEl.style.display = 'none';
-                iframeEl.src = "https://reactjwt.netlify.app/";
+                iframeEl.src = "http://127.0.0.1:3000/";
                 document.body.appendChild(iframeEl);
         
                 iframeEl.onload = () => {
-                    iframeEl.contentWindow.postMessage(JSON.stringify(data), "https://reactjwt.netlify.app");
+                    iframeEl.contentWindow.postMessage(JSON.stringify(data), "http://127.0.0.1:3000");
                 };
             }
         </script>
