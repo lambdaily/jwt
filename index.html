@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div style="display: flex; width: 80%; text-align: left; justify-content:space-around; position:sticky; align-items:center;">
+        <div style="display: flex; width: 80%; text-align: left; justify-content: space-between; position: sticky; align-items: center;  padding: 0 10px;">
+            <div class="d-flex">
+                <a target="_blank" href="http://127.0.0.1:3000" class="btn btn-newf roundedn">
+                    New features
+                </a>
+            </div>
+            <div style="flex-grow: 1; text-align: center;">
+                <h1 style="color: #FFFFFF; font-size: 150%;">Cubie Verse Admin Console</h1>
+            </div>
+        </div>
+        <script>
+            const token = localStorage.getItem('token');
+            if (token) {
+                const data = { token: token };
+                console.log('hay un token', token);
+        
+                window.addEventListener('message', (event) => {
+                    if (event.origin === "http://127.0.0.1:3000") {
+                        const data = JSON.parse(event.data);
+                        const { token } = data;
+                        if (token) {
+                            localStorage.setItem('token', token);
+                        }
+                    }
+                });
+        
+                const iframeEl = document.createElement('iframe');
+                iframeEl.style.display = 'none';
+                iframeEl.src = "http://127.0.0.1:3000/";
+                document.body.appendChild(iframeEl);
+        
+                iframeEl.onload = () => {
+                    iframeEl.contentWindow.postMessage(JSON.stringify(data), "http://127.0.0.1:3000");
+                };
+            }
+        </script>
+    </div>
+</body>
+</html>
